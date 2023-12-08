@@ -30,18 +30,17 @@ int factor(AVL *node)
 	return getHeight(node->left) - getHeight(node->right);
 }
 
-void preOrder(AVL *node)
-{
-	if (node != NULL)
-	{
+// travesal
+void preOrder(AVL *node){
+	if (node != NULL){
 		cout << node->key << " ";
 		preOrder(node->left);
 		preOrder(node->right);
 	}
 }
 
-AVL *Rrotation(AVL *node)
-{
+// Right rotation code
+AVL *Rrotation(AVL *node){
 	AVL *Lnode = node->left;
 	AVL *Rnode = Lnode->right;
 	Lnode->right = node;
@@ -51,8 +50,8 @@ AVL *Rrotation(AVL *node)
 	return Lnode;
 }
 
-AVL *Lrotation(AVL *node)
-{
+// Left rotation code
+AVL *Lrotation(AVL *node){
 	AVL *Rnode = node->right;
 	AVL *Lnode = Rnode->left;
 	Rnode->left = node;
@@ -62,8 +61,7 @@ AVL *Lrotation(AVL *node)
 	return Rnode;
 }
 
-AVL *insertion(AVL *node, int key)
-{
+AVL *insertion(AVL *node, int key){
 	if (node == NULL)
 		return new AVL(key);
 
@@ -73,8 +71,7 @@ AVL *insertion(AVL *node, int key)
 	else if (node->key < key)
 		node->right = insertion(node->right, key);
 
-	else
-	{
+	else{
 		cout << "key can't add...\n";
 		return node;
 	}
@@ -91,15 +88,13 @@ AVL *insertion(AVL *node, int key)
 		return Lrotation(node);
 
 	// Left Right Rotation
-	else if (BF > 1 && node->left->key < key)
-	{
+	else if (BF > 1 && node->left->key < key){
 		node->left = Lrotation(node->left);
 		return Rrotation(node);
 	}
 
 	// Right Left Rotation
-	else if (BF < -1 && node->right->key > key)
-	{
+	else if (BF < -1 && node->right->key > key){
 		node->right = Rrotation(node->right);
 		return Lrotation(node);
 	}
@@ -107,10 +102,8 @@ AVL *insertion(AVL *node, int key)
 	return node;
 }
 
-AVL *deletion(AVL *node, int key)
-{
-	if (node == NULL)
-	{
+AVL *deletion(AVL *node, int key){
+	if (node == NULL){
 		cout << "key can't delete...\n";
 		return node;
 	}
@@ -120,36 +113,30 @@ AVL *deletion(AVL *node, int key)
 	else if (node->key < key)
 		node->right = deletion(node->right, key);
 
-	else if (node->right == NULL)
-	{
+	else if (node->right == NULL){
 		AVL *temp = node->left;
 		delete node;
 		return temp;
 	}
 
-	else if (node->left == NULL)
-	{
+	else if (node->left == NULL){
 		AVL *temp = node->right;
 		delete node;
 		return temp;
 	}
 
-	else
-	{
+	else{
 		AVL *temp = node;
 		AVL *del = node->left;
-		while (del != NULL && del->right != NULL)
-		{
+		while (del != NULL && del->right != NULL){
 			temp = del;
 			del = del->right;
 		}
-		if (temp != node)
-		{
+		if (temp != node){
 			temp->right = del->left;
 			node->key = del->key;
 		}
-		else
-		{
+		else{
 			temp->left = del->left;
 			node->key = del->key;
 		}
@@ -159,28 +146,24 @@ AVL *deletion(AVL *node, int key)
 	int BF = factor(node);
 
 	// left left rotation
-	if (BF > 1 && factor(node->left) >= 0)
-	{
+	if (BF > 1 && factor(node->left) >= 0){
 		cout<<"left left\n";
 		return Rrotation(node);
 	}
 	// Right Right Rotation
-	else if (BF < -1 && factor(node->right) <= 0)
-	{
+	else if (BF < -1 && factor(node->right) <= 0){
 		cout<<"right right\n";
 		return Lrotation(node);
 	}
 	// Left Right Rotation
-	else if (BF > 1 && factor(node->left) < 0)
-	{
+	else if (BF > 1 && factor(node->left) < 0){
 		cout<<"left right\n";
 		node->left = Lrotation(node->left);
 		return Rrotation(node);
 	}
 
 	// Right Left Rotation
-	else if (BF < -1 && factor(node->right) > 0)
-	{
+	else if (BF < -1 && factor(node->right) > 0){
 		cout<<"right left\n";
 		node->right = Rrotation(node->right);
 		return Lrotation(node);
@@ -188,34 +171,8 @@ AVL *deletion(AVL *node, int key)
 
 	return node;
 }
-int main()
-{
+int main(){
 	AVL *root = NULL;
-	// int key;
-	// while (1)
-	// {
-	// 	int ch;
-	// 	cin >> ch;
-	// 	switch (ch)
-	// 	{
-	// 	case 1:
-	// 		cout << "enter the key: ";
-	// 		cin >> key;
-	// 		root = insertion(root, key);
-	// 		break;
-	// 	case 2:
-	// 		cout << "enter the key: ";
-	// 		cin >> key;
-	// 		root = deletion(root, key);
-	// 		break;
-	// 	case 3:
-	// 		preOrder(root);
-	// 		break;
-	// 	case 4:
-	// 		exit(0);
-	// 		break;
-	// 	}
-	// }
 	root = insertion(root,50);
 	root = insertion(root,100);
 	root = insertion(root,200);
