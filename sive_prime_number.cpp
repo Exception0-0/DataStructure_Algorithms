@@ -12,5 +12,11 @@ int main(){
             }
         }
     }
+
+    int cnt = 0;
+    for(int i=0;i<=mx;i++){
+        if(isPrime[i]) cnt++;
+    }
+    cout<<cnt<<"\n";
     return 0;
 }
