@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 int front=0,rear=-1;
-void insertion(int arr[],int size)
+ void insertion(int arr[],int size)
 {
     if(rear == size-1)
     {

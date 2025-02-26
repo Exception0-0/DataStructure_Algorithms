@@ -19,67 +19,31 @@
 using namespace std;
 const int mod = 1e9+7;
 
-// int Parent[2010];
-// int Rank[2010];
-// int getParent(int i)
-// {
-// 	if(Parent[i] == i) return i;
-// 	return getParent(Parent[i]);
-// }
-// void Union(int a,int b)
-// {
-// 	int parent_A = getParent(a);
-// 	int parent_B = getParent(b);
-// 	if(Rank[parent_A] >= Rank[parent_B])
-// 	{
-// 		Parent[parent_B] = parent_A;
-// 		Rank[parent_A] += Rank[parent_B];
-// 	}
-// 	else
-// 	{
-// 		Parent[parent_A] = parent_B;
-// 		Rank[parent_B] += Rank[parent_A];
-// 	}
-// }
-// bool isCycle(int u,int v)
-// {
-// 	return getParent(u) == getParent(v);
-// }
-
-int main()
-{
-	TLE;
-	int t,google=1;cin>>t;
-	while(t--)
-	{
-		// int n;cin>>n;
-		// string a;cin>>a;
-		// string b;cin>>b;
-		// int m = 0,f = 0;
-		// for(int i=0;i<n;i++)
-		// {
-		// 	if(a[i] == 'S')
-		// 	{
-		// 		if(b[i] == 'R') f++;
-		// 		else if(b[i] != 'S') m++;
-		// 	}
-		// 	else if(a[i] == 'P')
-		// 	{
-		// 		if(b[i] == 'S') f++;
-		// 		else if(b[i] != 'P') m++;
-		// 	}
-		// 	else
-		// 	{
-		// 		if(b[i] == 'P') f++;
-		// 		else if(b[i] != 'R') m++;
-		// 	}
-		// }
-		// cout<<max(0,f-m)<<"\n";
-		
-	}
-}
- 
- 
+class dsu{
+    const int n = 1000;
+    int Rank[n+10],parent[n+10];
+    public:
+    dsu(){
+        for(int i=0;i<n+10;i++) Rank[i] = 1;
+        iota(parent,parent+n+10,0);
+    }
+    int get_parent(int i){
+        if(parent[i] == i) return i;
+        return parent[i] = get_parent(parent[i]);
+    }
+    void Union(int a,int b){
+        int parent_A = get_parent(a);
+        int parent_B = get_parent(b);
+        if(Rank[parent_A] >= Rank[parent_B]){
+            parent[parent_B] = parent_A;
+            Rank[parent_A] += Rank[parent_B];
+        }
+        else{
+            parent[parent_A] = parent_B;
+            Rank[parent_B] += Rank[parent_A];
+        }
+    }
+};
  
 /*
 
