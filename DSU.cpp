@@ -1,31 +1,14 @@
 #include <bits/stdc++.h>
-#define Mxv 100010
-#define inf 1000000000
-#define linf 1000000000000000000
-#define fi first
-#define se second
-#define ll long long
-// #define u unsigned
-#define null NULL
-#define pb push_back
-#define ob pop_back
-#define scan(arr,n) for(int i=0;i<n;i++) cin>>arr[i]
-#define print(arr,n) for(int i=0;i<n;i++) cout<<arr[i]<<" "
-#define printR(arr,n) for(int i=n-1;i>=0;i--) cout<<arr[i]<<" "
-#define len size()
-#define mins(a,b) a = min(a,b)
-#define maxs(a,b) a = max(a,b)
-#define TLE ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
 using namespace std;
-const int mod = 1e9+7;
 
 class dsu{
-    const int n = 1000;
-    int Rank[n+10],parent[n+10];
+    vector<int> Size,parent;
     public:
-    dsu(){
-        for(int i=0;i<n+10;i++) Rank[i] = 1;
-        iota(parent,parent+n+10,0);
+    dsu(int si){
+        Size.resize(si+10);
+        parent.resize(si+10);
+        fill(all(Size),1);
+        iota(all(parent),0);
     }
     int get_parent(int i){
         if(parent[i] == i) return i;
@@ -34,6 +17,9 @@ class dsu{
     void Union(int a,int b){
         int parent_A = get_parent(a);
         int parent_B = get_parent(b);
+
+        if(parent_A == parent_B) return;
+
         if(Rank[parent_A] >= Rank[parent_B]){
             parent[parent_B] = parent_A;
             Rank[parent_A] += Rank[parent_B];
@@ -44,14 +30,3 @@ class dsu{
         }
     }
 };
- 
-/*
-
-	8 -1 -4 2 6 -3
-
-	-4 -3 -1 2 6 8
-
-	-4 3 1 2 6 8
-	-4 1 2 3 6 8
-
-*/
